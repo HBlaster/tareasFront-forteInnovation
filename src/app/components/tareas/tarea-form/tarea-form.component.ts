@@ -79,4 +79,12 @@ export class TareaFormComponent implements OnInit {
       },
     });
   }
+
+  regresar(): void {
+    this.notificationService.confirmacion('¿Estás seguro?', 'Volverás a la lista de tareas.').then((confirmado) => {
+      if (confirmado) {
+        this.router.navigate(['/tareas']);
+      }
+    });
+  }
 }

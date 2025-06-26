@@ -7,13 +7,13 @@ import Swal from 'sweetalert2';
 export class NotificationService {
   constructor() {}
 
-  confirmacionEliminacion(): Promise<boolean> {
+  confirmacion(titulo: string, texto: string = ''): Promise<boolean> {
     return Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción eliminará la tarea permanentemente.',
+      title: titulo,
+      text: texto,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
+      confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
     }).then((result) => result.isConfirmed);
   }

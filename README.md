@@ -19,7 +19,7 @@ Consume una API RESTful en .NET Core y permite realizar operaciones **CRUD** de 
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/tuusuario/AdminTareasApp.git
+git clone https://github.com/HBlaster/AdminTareasApp.git
 cd AdminTareasApp
 
 2. Instala las dependencias

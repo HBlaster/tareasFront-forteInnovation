@@ -33,7 +33,7 @@ export class TareasListaComponent implements OnInit {
     return EstadoTarea[estado]; // Convierte 0 → Pendiente, 1 → EnProgreso, etc.
   }
   eliminarTarea(id: number): void {
-    this.notificationService.confirmacionEliminacion().then((confirmado) => {
+    this.notificationService.confirmacion('¿Estás seguro?', 'Esta acción eliminará la tarea permanentemente.').then((confirmado) => {
       if (!confirmado) return;
 
       this.tareaService.delete(id).subscribe({
@@ -57,4 +57,14 @@ export class TareasListaComponent implements OnInit {
     // this.router.navigate([`/tarea/editar/${tarea.id}`]);
     this.router.navigate(['/tarea/editar', tarea.id]);
   }
+
+  getEstadoClase(estado: number): string {
+  switch (estado) {
+    case 0: return 'bg-danger';    // Pendiente: rojo
+    case 1: return 'bg-warning';   // En proceso: amarillo
+    case 2: return 'bg-success';   // Completado: verde
+    default: return 'bg-secondary';
+  }
+}
+
 }
