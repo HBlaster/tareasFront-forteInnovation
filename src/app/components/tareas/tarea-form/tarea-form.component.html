@@ -1,7 +1,9 @@
 <div class="card shadow-sm">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h4 class="mb-0">{{ id ? 'Editar Tarea' : 'Crear Tarea' }}</h4>
-    <a routerLink="/tareas" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+    <h4 class="mb-0">{{ id ? "Editar Tarea" : "Crear Tarea" }}</h4>
+    <a routerLink="/tareas" class="btn btn-outline-secondary btn-sm"
+      >Cancelar</a
+    >
   </div>
 
   <div class="card-body">
@@ -13,11 +15,13 @@
           type="text"
           class="form-control"
           formControlName="titulo"
-          [ngClass]="{ 'is-invalid': tareaForm.get('titulo')?.invalid && tareaForm.get('titulo')?.touched }"
+          [ngClass]="{
+            'is-invalid':
+              tareaForm.get('titulo')?.invalid &&
+              tareaForm.get('titulo')?.touched
+          }"
         />
-        <div class="invalid-feedback">
-          El título es obligatorio.
-        </div>
+        <div class="invalid-feedback">El título es obligatorio.</div>
       </div>
 
       <div class="mb-3">
@@ -27,11 +31,13 @@
           class="form-control"
           formControlName="descripcion"
           rows="3"
-          [ngClass]="{ 'is-invalid': tareaForm.get('descripcion')?.invalid && tareaForm.get('descripcion')?.touched }"
+          [ngClass]="{
+            'is-invalid':
+              tareaForm.get('descripcion')?.invalid &&
+              tareaForm.get('descripcion')?.touched
+          }"
         ></textarea>
-        <div class="invalid-feedback">
-          La descripción es obligatoria.
-        </div>
+        <div class="invalid-feedback">La descripción es obligatoria.</div>
       </div>
 
       <div class="mb-4">
@@ -43,8 +49,12 @@
         </select>
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="tareaForm.invalid">
-        {{ id ? 'Guardar Cambios' : 'Crear Tarea' }}
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="tareaForm.invalid"
+      >
+        {{ id ? "Guardar Cambios" : "Crear Tarea" }}
       </button>
     </form>
   </div>

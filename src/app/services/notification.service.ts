@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
-
-  constructor() { }
+  constructor() {}
 
   confirmacionEliminacion(): Promise<boolean> {
     return Swal.fire({
@@ -15,8 +14,8 @@ export class NotificationService {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(result => result.isConfirmed);
+      cancelButtonText: 'Cancelar',
+    }).then((result) => result.isConfirmed);
   }
 
   mensajeExito(titulo: string, texto: string = '') {
@@ -24,7 +23,7 @@ export class NotificationService {
       title: titulo,
       text: texto,
       icon: 'success',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     });
   }
 
@@ -33,7 +32,7 @@ export class NotificationService {
       title: titulo,
       text: texto,
       icon: 'error',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     });
   }
 }

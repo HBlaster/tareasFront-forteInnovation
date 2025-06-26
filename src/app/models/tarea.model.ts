@@ -1,7 +1,7 @@
 export enum EstadoTarea {
   Pendiente = 0,
   EnProgreso = 1,
-  Completada = 2
+  Completada = 2,
 }
 
 export interface Tarea {
@@ -9,5 +9,5 @@ export interface Tarea {
   titulo: string;
   descripcion: string;
   estado: EstadoTarea;
-  fechaCreacion: string; 
+  fechaCreacion: string;
 }

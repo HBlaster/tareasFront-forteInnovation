@@ -3,7 +3,10 @@
   <a routerLink="/tarea/nueva" class="btn btn-success">+ Nueva Tarea</a>
 </div>
 
-<table class="table table-striped table-bordered table-hover" *ngIf="tareas.length > 0; else noData">
+<table
+  class="table table-striped table-bordered table-hover"
+  *ngIf="tareas.length > 0; else noData"
+>
   <thead class="table-dark text-center">
     <tr>
       <th>ID</th>
@@ -20,17 +23,22 @@
       <td>{{ tarea.titulo }}</td>
       <td>{{ tarea.descripcion }}</td>
       <td>{{ getEstadoTexto(tarea.estado) }}</td>
-      <td>{{ tarea.fechaCreacion | date:'short' }}</td>
+      <td>{{ tarea.fechaCreacion | date : "short" }}</td>
       <td class="text-center">
-        <button class="btn btn-warning btn-sm me-2" (click)="editarTarea(tarea)">Editar</button>
-        <button class="btn btn-danger btn-sm" (click)="eliminarTarea(tarea.id)">Eliminar</button>
+        <button
+          class="btn btn-warning btn-sm me-2"
+          (click)="editarTarea(tarea)"
+        >
+          Editar
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="eliminarTarea(tarea.id)">
+          Eliminar
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
 <ng-template #noData>
-  <div class="alert alert-info text-center">
-    No hay tareas disponibles.
-  </div>
+  <div class="alert alert-info text-center">No hay tareas disponibles.</div>
 </ng-template>

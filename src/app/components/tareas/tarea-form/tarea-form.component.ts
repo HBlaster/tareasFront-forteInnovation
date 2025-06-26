@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Tarea, EstadoTarea } from '../../../models/tarea.model';
-import { TareaService } from '../../../services/tarea.service';
-import {NotificationService} from '../../../services/notification.service';
+import { NotificationService, TareaService } from '../../../services';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-tarea-form',
@@ -47,32 +44,39 @@ export class TareaFormComponent implements OnInit {
   }
 
   guardarTarea(): void {
-  if (this.tareaForm.invalid) return;
+    if (this.tareaForm.invalid) return;
 
-  const tareaData: Tarea = {
-    ...this.tareaForm.value,
-    id: this.id ?? 0,
-    fechaCreacion: this.id
-      ? this.fechaCreacionOriginal
-      : new Date().toISOString(),
-    estado: +this.tareaForm.value.estado,
-  };
+    const tareaData: Tarea = {
+      ...this.tareaForm.value,
+      id: this.id ?? 0,
+      fechaCreacion: this.id
+        ? this.fechaCreacionOriginal
+        : new Date().toISOString(),
+      estado: +this.tareaForm.value.estado,
+    };
 
-  const operacion = this.id
-    ? this.tareaService.update(this.id, tareaData)
-    : this.tareaService.create(tareaData);
+    const operacion = this.id
+      ? this.tareaService.update(this.id, tareaData)
+      : this.tareaService.create(tareaData);
 
-  operacion.subscribe({
-    next: () => {
-      this.notificationService.mensajeExito(
-        this.id ? 'Tarea actualizada' : 'Tarea creada',
-        this.id ? 'Los cambios se guardaron correctamente.' : 'La tarea se creó exitosamente.'
-      ).then(() => this.router.navigate(['/tareas']));
-    },
-    error: (err) => {
-      console.error('Error al guardar tarea', err);
-      this.notificationService.mensajeError('Error', 'No se pudo guardar la tarea.');
-    }
-  });
-}
+    operacion.subscribe({
+      next: () => {
+        this.notificationService
+          .mensajeExito(
+            this.id ? 'Tarea actualizada' : 'Tarea creada',
+            this.id
+              ? 'Los cambios se guardaron correctamente.'
+              : 'La tarea se creó exitosamente.'
+          )
+          .then(() => this.router.navigate(['/tareas']));
+      },
+      error: (err) => {
+        console.error('Error al guardar tarea', err);
+        this.notificationService.mensajeError(
+          'Error',
+          'No se pudo guardar la tarea.'
+        );
+      },
+    });
+  }
 }

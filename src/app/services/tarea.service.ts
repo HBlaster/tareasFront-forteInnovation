@@ -4,10 +4,9 @@ import { Tarea } from '../models/tarea.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TareaService {
-  
   private apiUrl = 'http://localhost:5123/api/tareas';
 
   constructor(private http: HttpClient) {}
