@@ -30,41 +30,48 @@ export class TareasListaComponent implements OnInit {
   }
 
   getEstadoTexto(estado: EstadoTarea): string {
-    return EstadoTarea[estado]; // Convierte 0 → Pendiente, 1 → EnProgreso, etc.
+    return EstadoTarea[estado]; 
   }
   eliminarTarea(id: number): void {
-    this.notificationService.confirmacion('¿Estás seguro?', 'Esta acción eliminará la tarea permanentemente.').then((confirmado) => {
-      if (!confirmado) return;
+    this.notificationService
+      .confirmacion(
+        '¿Estás seguro?',
+        'Esta acción eliminará la tarea permanentemente.'
+      )
+      .then((confirmado) => {
+        if (!confirmado) return;
 
-      this.tareaService.delete(id).subscribe({
-        next: () => {
-          this.tareas = this.tareas.filter((t) => t.id !== id);
-          this.notificationService.mensajeExito(
-            'Eliminado',
-            'La tarea fue eliminada con éxito.'
-          );
-        },
-        error: () =>
-          this.notificationService.mensajeError(
-            'Error',
-            'No se pudo eliminar la tarea.'
-          ),
+        this.tareaService.delete(id).subscribe({
+          next: () => {
+            this.tareas = this.tareas.filter((t) => t.id !== id);
+            this.notificationService.mensajeExito(
+              'Eliminado',
+              'La tarea fue eliminada con éxito.'
+            );
+          },
+          error: () =>
+            this.notificationService.mensajeError(
+              'Error',
+              'No se pudo eliminar la tarea.'
+            ),
+        });
       });
-    });
   }
 
   editarTarea(tarea: Tarea): void {
-    // this.router.navigate([`/tarea/editar/${tarea.id}`]);
     this.router.navigate(['/tarea/editar', tarea.id]);
   }
 
   getEstadoClase(estado: number): string {
-  switch (estado) {
-    case 0: return 'bg-danger';    // Pendiente: rojo
-    case 1: return 'bg-warning';   // En proceso: amarillo
-    case 2: return 'bg-success';   // Completado: verde
-    default: return 'bg-secondary';
+    switch (estado) {
+      case 0:
+        return 'bg-danger'; // Pendiente: rojo
+      case 1:
+        return 'bg-warning'; // En proceso: amarillo
+      case 2:
+        return 'bg-success'; // Completado: verde
+      default:
+        return 'bg-secondary';
+    }
   }
-}
-
 }
