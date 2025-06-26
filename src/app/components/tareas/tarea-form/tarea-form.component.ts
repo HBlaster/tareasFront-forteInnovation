@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Tarea, EstadoTarea } from '../../../models/tarea.model';
 import { TareaService } from '../../../services/tarea.service';
@@ -7,12 +7,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-tarea-form',
   templateUrl: './tarea-form.component.html',
-  styleUrls: ['./tarea-form.component.css']
+  styleUrls: ['./tarea-form.component.css'],
 })
 export class TareaFormComponent implements OnInit {
-
   tareaForm!: FormGroup;
   estadoTarea = EstadoTarea;
+  id: number = 0;
+  fechaCreacionOriginal: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -22,36 +23,49 @@ export class TareaFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-     this.tareaForm = this.fb.group({
-    titulo: ['', Validators.required],
-    descripcion: ['', Validators.required],
-    estado: [EstadoTarea.Pendiente, Validators.required]
-  });
-
-  const id = this.route.snapshot.paramMap.get('id');
-  if (id) {
-    this.tareaService.getById(+id).subscribe(tarea => {
-      this.tareaForm.patchValue(tarea);
+    this.tareaForm = this.fb.group({
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      estado: [EstadoTarea.Pendiente, Validators.required],
     });
-  }
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        this.id = +id;
+        this.tareaService.getById(this.id).subscribe((tarea) => {
+          this.tareaForm.patchValue(tarea);
+          this.fechaCreacionOriginal = tarea.fechaCreacion; // 👈 Guardar valor original
+        });
+      }
+    }
   }
 
-  crearTarea(): void {
+  guardarTarea(): void {
     if (this.tareaForm.invalid) return;
 
-    const nuevaTarea: Tarea = {
+    console.log('Formulario enviado:', this.tareaForm.value);
+
+    const tareaData: Tarea = {
       ...this.tareaForm.value,
-      id: 0,
-      fechaCreacion: new Date().toISOString()
+      id: this.id ?? 0,
+      fechaCreacion: this.id
+        ? this.fechaCreacionOriginal
+        : new Date().toISOString(),
+      estado: +this.tareaForm.value.estado,
     };
 
-    this.tareaService.create(nuevaTarea).subscribe({
+    const operacion = this.id
+      ? this.tareaService.update(this.id, tareaData)
+      : this.tareaService.create(tareaData);
+
+    operacion.subscribe({
       next: () => {
-        alert('Tarea creada con éxito');
-        this.tareaForm.reset({ estado: EstadoTarea.Pendiente });
+        alert(this.id ? 'Tarea editada con éxito' : 'Tarea creada con éxito');
+        this.router.navigate(['/tareas']);
       },
-      error: (err) => console.error('Error al crear tarea', err)
+      error: (err) => console.error('Error al guardar tarea', err),
     });
   }
-
 }

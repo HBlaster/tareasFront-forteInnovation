@@ -30,14 +30,19 @@ export class TareasListaComponent implements OnInit {
     return EstadoTarea[estado]; // Convierte 0 → Pendiente, 1 → EnProgreso, etc.
   }
   eliminarTarea(id: number): void {
-    this.tareaService.delete(id).subscribe({
-      next: () => {
-        this.tareas = this.tareas.filter(tarea => tarea.id !== id);
-        console.log('Tarea eliminada con éxito');
-      },
-      error: (err) => console.error('Error al eliminar tarea', err)
-    });
-  }
+  const confirmacion = confirm('¿Estás seguro de que deseas eliminar esta tarea?');
+
+  if (!confirmacion) return;
+
+  this.tareaService.delete(id).subscribe({
+    next: () => {
+      this.tareas = this.tareas.filter(tarea => tarea.id !== id);
+      console.log('Tarea eliminada con éxito');
+    },
+    error: err => console.error('Error al eliminar tarea', err)
+  });
+}
+
   editarTarea(tarea: Tarea): void {
     // this.router.navigate([`/tarea/editar/${tarea.id}`]);
     this.router.navigate(['/tarea/editar', tarea.id]);
