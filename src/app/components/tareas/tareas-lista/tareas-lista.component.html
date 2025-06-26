@@ -1,0 +1,32 @@
+<h2>Lista de Tareas</h2>
+<button routerLink="/tarea/nueva">+ Nueva Tarea</button>
+
+<table border="1" cellpadding="8" cellspacing="0" *ngIf="tareas.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Fecha Creación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tarea of tareas">
+      <td>{{ tarea.id }}</td>
+      <td>{{ tarea.titulo }}</td>
+      <td>{{ tarea.descripcion }}</td>
+      <td>{{ getEstadoTexto(tarea.estado) }}</td>
+      <td>{{ tarea.fechaCreacion | date:'short' }}</td>
+      <td>
+        <button (click)="editarTarea(tarea)">Editar</button>
+        <button (click)="eliminarTarea(tarea.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noData>
+  <p>No hay tareas disponibles.</p>
+</ng-template>

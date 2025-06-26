@@ -1,0 +1,30 @@
+<h2>Crear Tarea</h2>
+<button routerLink="/tareas">cancelar</button>
+<form [formGroup]="tareaForm" (ngSubmit)="crearTarea()">
+  <div>
+    <label for="titulo">Título:</label>
+    <input id="titulo" type="text" formControlName="titulo">
+    <div *ngIf="tareaForm.get('titulo')?.invalid && tareaForm.get('titulo')?.touched">
+      El título es obligatorio.
+    </div>
+  </div>
+
+  <div>
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" formControlName="descripcion"></textarea>
+    <div *ngIf="tareaForm.get('descripcion')?.invalid && tareaForm.get('descripcion')?.touched">
+      La descripción es obligatoria.
+    </div>
+  </div>
+
+  <div>
+    <label for="estado">Estado:</label>
+    <select id="estado" formControlName="estado">
+      <option [value]="estadoTarea.Pendiente">Pendiente</option>
+      <option [value]="estadoTarea.EnProgreso">En Progreso</option>
+      <option [value]="estadoTarea.Completada">Completada</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="tareaForm.invalid">Crear</button>
+</form>
