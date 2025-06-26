@@ -1,30 +1,51 @@
-<h2>Crear Tarea</h2>
-<button routerLink="/tareas">cancelar</button>
-<form [formGroup]="tareaForm" (ngSubmit)="guardarTarea()">
-  <div>
-    <label for="titulo">Título:</label>
-    <input id="titulo" type="text" formControlName="titulo">
-    <div *ngIf="tareaForm.get('titulo')?.invalid && tareaForm.get('titulo')?.touched">
-      El título es obligatorio.
-    </div>
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">{{ id ? 'Editar Tarea' : 'Crear Tarea' }}</h4>
+    <a routerLink="/tareas" class="btn btn-outline-secondary btn-sm">Cancelar</a>
   </div>
 
-  <div>
-    <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" formControlName="descripcion"></textarea>
-    <div *ngIf="tareaForm.get('descripcion')?.invalid && tareaForm.get('descripcion')?.touched">
-      La descripción es obligatoria.
-    </div>
-  </div>
+  <div class="card-body">
+    <form [formGroup]="tareaForm" (ngSubmit)="guardarTarea()">
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input
+          id="titulo"
+          type="text"
+          class="form-control"
+          formControlName="titulo"
+          [ngClass]="{ 'is-invalid': tareaForm.get('titulo')?.invalid && tareaForm.get('titulo')?.touched }"
+        />
+        <div class="invalid-feedback">
+          El título es obligatorio.
+        </div>
+      </div>
 
-  <div>
-    <label for="estado">Estado:</label>
-    <select id="estado" formControlName="estado">
-      <option [value]="estadoTarea.Pendiente">Pendiente</option>
-      <option [value]="estadoTarea.EnProgreso">En Progreso</option>
-      <option [value]="estadoTarea.Completada">Completada</option>
-    </select>
-  </div>
+      <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea
+          id="descripcion"
+          class="form-control"
+          formControlName="descripcion"
+          rows="3"
+          [ngClass]="{ 'is-invalid': tareaForm.get('descripcion')?.invalid && tareaForm.get('descripcion')?.touched }"
+        ></textarea>
+        <div class="invalid-feedback">
+          La descripción es obligatoria.
+        </div>
+      </div>
 
-  <button type="submit" [disabled]="tareaForm.invalid">Crear</button>
-</form>
+      <div class="mb-4">
+        <label for="estado" class="form-label">Estado</label>
+        <select id="estado" class="form-select" formControlName="estado">
+          <option [value]="estadoTarea.Pendiente">Pendiente</option>
+          <option [value]="estadoTarea.EnProgreso">En Progreso</option>
+          <option [value]="estadoTarea.Completada">Completada</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="tareaForm.invalid">
+        {{ id ? 'Guardar Cambios' : 'Crear Tarea' }}
+      </button>
+    </form>
+  </div>
+</div>
