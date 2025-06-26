@@ -1,27 +1,101 @@
-# TareasAdmin
+# 🧠 AdminTareasApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.12.
+Aplicación web para la **Gestión de tareas** construida con **Angular 17.3**.  
+Consume una API RESTful en .NET Core y permite realizar operaciones **CRUD** de forma intuitiva y profesional.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ⚙️ Tecnologías usadas
 
-## Code scaffolding
+- ✅ Angular 17.3
+- ✅ Bootstrap 5
+- ✅ SweetAlert2
+- ✅ Reactive Forms
+- ✅ HttpClient
+- ✅ Routing
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Cómo correr el proyecto
 
-## Build
+### 1. Clona el repositorio
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+git clone https://github.com/tuusuario/AdminTareasApp.git
+cd AdminTareasApp
 
-## Running unit tests
+2. Instala las dependencias
+npm install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Corre la app en modo desarrollo
+ng serve
 
-## Running end-to-end tests
+Abre en el navegador:
+📍 http://localhost:4200
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+🌐 Comunicación con el backend
+La conexion a la API esta configurada en el puerto: 5123
 
-## Further help
+El HttpClient está configurado para consumir endpoints desde la URL, ejemplo:
+ 'http://localhost:5123/api/tareas';
+Si la API arranca en un puerto diferente lo puedes cambiar en el archivo environment.ts
+ruta: 
+src/environments/environment.ts
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+🗂️ Estructura del proyecto
+AdminTareasApp/
+│
+├── app/
+│   ├── components/
+│   │   ├── tareas/
+│   │   │   ├── tarea-lista/       # Listado y acciones
+│   │   │   └── tarea-form/        # Crear / editar
+│   │
+│   ├── services/
+│   │   ├── tarea.service.ts       # Lógica de consumo HTTP
+│   │   └── notification.service.ts# SweetAlert2 centralizado
+│   │
+│   ├── models/
+│   │   └── tarea.model.ts         # Modelo Tarea
+│   │
+│   └── app-routing.module.ts      # Rutas definidas
+```
+🧪 Funcionalidades
+✔️ Ver listado de tareas
+✔️ Crear nueva tarea
+✔️ Editar tarea existente
+✔️ Eliminar tarea con confirmación
+✔️ Validaciones en formularios
+✔️ Notificaciones con SweetAlert2
+✔️ Estilos aplicados con Bootstrap
+
+✅ Validaciones
+Todos los campos son obligatorios
+
+El estado debe ser un número entre 0 y 2
+
+Fecha de creación se asigna automáticamente
+
+✨ Extras técnicos
+Diseño responsive con Bootstrap
+
+Importación agrupada vía index.ts para servicios
+
+Lógica de formularios desacoplada con Reactive Forms
+
+SweetAlerts encapsulados en un servicio reusable
+
+📦 Posibles mejoras futuras
+Paginación en el listado
+
+Filtro por estado o título
+
+Guard para proteger rutas (si se implementa autenticación)
+
+Soporte multilenguaje
+
+```
+🧑‍💻 Autor
+Desarrollado por Alfredo Cano
+Contacto: alfredo10396.c@gmail.com
+```
