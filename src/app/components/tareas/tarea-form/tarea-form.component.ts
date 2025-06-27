@@ -32,14 +32,11 @@ export class TareaFormComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        this.id = +id;
-        this.tareaService.getById(this.id).subscribe((tarea) => {
-          this.tareaForm.patchValue(tarea);
-          this.fechaCreacionOriginal = tarea.fechaCreacion; // 👈 Guardar valor original
-        });
-      }
+      this.id = +id;
+      this.tareaService.getById(this.id).subscribe((tarea) => {
+        this.tareaForm.patchValue(tarea);
+        this.fechaCreacionOriginal = tarea.fechaCreacion; // 👈 Guardar valor original
+      });
     }
   }
 
